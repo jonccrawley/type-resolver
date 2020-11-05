@@ -2,6 +2,9 @@ apply plugin: "java"
 apply plugin: "maven"
 apply plugin: 'maven-publish'
 
+
+group = 'io.jonccrawley'
+
 repositories {
     mavenCentral()
 }
@@ -10,29 +13,26 @@ dependencies {
     compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.4"
     compile "com.google.code.gson:gson:2.3.1"
     compile group: 'com.google.guava', name: 'guava', version: '20.0'
+
+    testCompile(group: "org.testng", name: "testng", version: "6.8.8") {
+        exclude module: "bsh"
+    }
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            pom {
-                name = 'Type Resolver Library'
-                description = 'Library to help with request type resolution and object deseralization'
-                url = 'https://github.com/jonccrawley/type-resolver'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'jonccrawley'
-                        name = 'Jon C Crawley'
-                        email = 'jon@crawley.cloud'
-                    }
-                }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/jonccrawley/type-resolver")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
             }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
         }
     }
 }
