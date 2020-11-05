@@ -29,3 +29,14 @@ jobs:
       with:
         name: JAR
         path: build/libs/*.jar
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1.3
+      if: always()
+      with:
+        check_name: Unit Test Results
+        comment_title: Unit Test Statistics
+        hide_comments: all but latest
+        comment_on_pr: true
+        files: test-results/**/*.xml
+        report_individual_runs: true
+        deduplicate_classes_by_file_name: false
