@@ -28,4 +28,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: JAR
-        path: build/*.jar
+        path: build/libs/*.jar
