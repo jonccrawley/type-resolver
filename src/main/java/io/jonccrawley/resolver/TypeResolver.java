@@ -6,16 +6,16 @@ import javax.xml.bind.TypeConstraintException;
 public class TypeResolver implements Resolver{
 
 	private static final Resolver[] resolvers = new Resolver[]{new StringResolver(),
-															   new NullOrEmptyResolver(),
-															   new ListResolver(),
-															   new SetResolver(),
-															   new BooleanResolver(),
-															   new LongResolver(),
-															   new IntegerResolver(),
-															   new DoubleResolver(),
-															   new BigDecimalResolver(),
-															   new JsonResolver(),
-															   new XMLResolver()};
+	   new NullOrEmptyResolver(),
+	   new ListResolver(),
+	   new SetResolver(),
+	   new BooleanResolver(),
+	   new LongResolver(),
+	   new IntegerResolver(),
+	   new DoubleResolver(),
+	   new BigDecimalResolver(),
+	   new JsonResolver(),
+	   new XMLResolver()};
 
 	TypeResolver(){}
 
@@ -34,6 +34,7 @@ public class TypeResolver implements Resolver{
 
 	@Override
 	public boolean isResolvable(Class<?> type, String arg, String accept) {
+		
 		for(Resolver resolver : resolvers) {
 			if (resolver.isResolvable(type, arg, accept)) {
 				return true;
@@ -44,6 +45,7 @@ public class TypeResolver implements Resolver{
 
 	@Override
 	public Object resolve(Class<?> type, String arg, String accept) throws HTTPStatusException {
+		
 		return resolveType(type,arg,accept);
 	}
 }
