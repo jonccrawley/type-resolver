@@ -6,6 +6,7 @@ class DoubleResolver implements Resolver{
 
 	@Override
 	public boolean isResolvable(Class<?> type, String arg, String accept) {
+		console.log("12345");
 		return Double.class.isAssignableFrom(type);
 	}
 
